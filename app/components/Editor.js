@@ -11,7 +11,6 @@ export default function Editor({content, setContent}) {
 
 
     const quillModules = {
-        ImageResize: {},
         toolbar: [
             [{header: [1, 2, 3, false]}],
             ['bold', 'italic', 'underline', 'strike', 'blockquote'],
