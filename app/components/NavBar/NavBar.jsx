@@ -23,7 +23,7 @@ const NavBar = () => {
         <div className="navbar bg-base-100">
             <div className="flex-1">
                 <div className={'btn btn-ghost'}>
-                    <Image src={'/logo.jpg'} alt={'logo'} width={30} height={30}/>
+                    <Image className={'rounded-full'} src={'/logo.jpg'} alt={'logo'} width={30} height={30}/>
                     <Link href={'/'} className={`${homePageColor}  text-xl`}>CDS</Link>
                 </div>
             </div>

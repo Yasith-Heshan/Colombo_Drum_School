@@ -37,18 +37,18 @@ const CreateBlog = () => {
         <>
             <NavBar/>
             <div className={'m-10 p-10 bg-gray-800 rounded shadow-lg shadow-gray-400'}>
-                <div className="flex justify-between items-center">
-                    <input className={'input input-bordered w-full max-w-xs m-1'} placeholder={'Title'} value={title}
+                <div className="sm:flex sm:justify-between sm:items-center">
+                    <input className={'input input-bordered w-full sm:max-w-xs m-1 placeholder:text-center'} placeholder={'Title'} value={title}
                            onChange={(event) => {
                                setTitle(event.target.value);
                            }}/>
                     <input id={'file-input'} title={'Choose Thumbnail'} placeholder={'Upload Thumbnail'}
-                           className={`${showFile} file-input file-input-bordered w-full max-w-xs m-1`}
+                           className={`${showFile} file-input file-input-bordered w-full sm:max-w-xs m-1`}
                            type='file' onChange={(event) => {
                         setImage(event.target.files[0])
                     }}/>
                     <label id={'file-input-label'}
-                           className={`${showLabel} input flex justify-center items-center input-bordered text-center text-1.5xl  w-full max-w-xs m-1`}
+                           className={`${showLabel} input flex justify-center items-center input-bordered text-center text-1.5xl  w-full sm:max-w-xs m-1`}
                            htmlFor={'file-input'}>Select Thumbnail</label>
                 </div>
 
