@@ -12,7 +12,7 @@ const ViewBlogs = ()=>{
     useEffect(() => {
         return async () => {
             const data = await retrieveBlog();
-            console.log(data);
+            console.log('from view page',data);
             setBlogList([...blogList,...data]);
         };
     }, []);
