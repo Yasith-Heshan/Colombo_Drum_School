@@ -11,12 +11,11 @@ export default function Editor({content, setContent}) {
 
 
     const quillModules = {
-        ImageResize: {},
         toolbar: [
             [{header: [1, 2, 3, false]}],
             ['bold', 'italic', 'underline', 'strike', 'blockquote'],
             [{list: 'ordered'}, {list: 'bullet'}],
-            ['link', 'image','video'],
+            ['link', 'image'],
             [{align: []}],
             [{color: []}],
             ['code-block'],
@@ -49,14 +48,12 @@ export default function Editor({content, setContent}) {
 
 
     return (
-
             <QuillEditor
                 value={content}
                 onChange={handleEditorChange}
                 modules={quillModules}
                 formats={quillFormats}
-                preserveWhitespace={true}
-                className={'w-full bg-white text-black my-5'}
+                className={'w-full min-h-[40vh] bg-white text-black my-5'}
             />
     );
 }

@@ -1,8 +1,13 @@
-import Editor from "@/app/components/Editor";
+import NavBar from "@/app/components/NavBar/NavBar";
+import Footer from "@/app/components/Footer";
 
 
 export default function Home() {
-  return (
-      <Editor/>
-  );
+    return (
+        <>
+            <NavBar/>
+            <Footer/>
+        </>
+
+    );
 }

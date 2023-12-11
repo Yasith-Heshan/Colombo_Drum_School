@@ -1,12 +1,28 @@
 "use client"
 import Editor from "@/app/components/Editor";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {saveBlog} from "@/app/utils/firebase_functions";
+import NavBar from "@/app/components/NavBar/NavBar";
+import Footer from "@/app/components/Footer";
 
 const CreateBlog = () => {
     const [content, setContent] = useState('');
     const [title, setTitle] = useState('')
     const [image, setImage] = useState(null);
+    const [showFile, setShowFile] = useState('hidden');
+    const [showLabel, setShowLabel] = useState('');
+
+    useEffect(
+        () => {
+            if (image) {
+                setShowFile('');
+                setShowLabel('hidden');
+            } else {
+                setShowFile('hidden');
+                setShowLabel('');
+            }
+        }, [image]
+    )
 
     const handleSubmit = async () => {
         await saveBlog({
@@ -18,27 +34,33 @@ const CreateBlog = () => {
 
 
     return (
-        <div className={'m-10 p-10 border border-black'}>
-            <div className="flex justify-between items-center">
-                <input className={'input input-bordered w-full max-w-xs m-1'} placeholder={'Title'} value={title}
-                       onChange={(event) => {
-                           setTitle(event.target.value);
-                       }}/>
-                <input placeholder={'Upload Thumbnail'} className={'file-input file-input-bordered w-full max-w-xs m-1'}
-                       type='file' onChange={(event) => {
-                    setImage(event.target.files[0])
-                }}/>
+        <>
+            <NavBar/>
+            <div className={'m-10 p-10 bg-gray-800 rounded shadow-lg shadow-gray-400'}>
+                <div className="flex justify-between items-center">
+                    <input className={'input input-bordered w-full max-w-xs m-1'} placeholder={'Title'} value={title}
+                           onChange={(event) => {
+                               setTitle(event.target.value);
+                           }}/>
+                    <input id={'file-input'} title={'Choose Thumbnail'} placeholder={'Upload Thumbnail'}
+                           className={`${showFile} file-input file-input-bordered w-full max-w-xs m-1`}
+                           type='file' onChange={(event) => {
+                        setImage(event.target.files[0])
+                    }}/>
+                    <label id={'file-input-label'}
+                           className={`${showLabel} input flex justify-center items-center input-bordered text-center text-1.5xl  w-full max-w-xs m-1`}
+                           htmlFor={'file-input'}>Select Thumbnail</label>
+                </div>
+
+                <Editor content={content} setContent={setContent}/>
+                <div className={'flex justify-end items-center pt-5'}>
+                    <button className={'btn btn-primary'} onClick={handleSubmit}>Publish</button>
+                </div>
+
             </div>
-
-            <Editor content={content} setContent={setContent}/>
-            <button className={'btn btn-primary'} onClick={handleSubmit}>Save</button>
-            <br/>
-
-            <br/>
-
-        </div>
-    )
-        ;
+            <Footer/>
+        </>
+    );
 }
 
 export default CreateBlog;
