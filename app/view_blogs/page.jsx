@@ -12,11 +12,12 @@ const ViewBlogs = ()=>{
     useEffect(() => {
         return async () => {
             const data = await retrieveBlog();
+            console.log(data);
             setBlogList([...blogList,...data]);
         };
     }, []);
 
-    console.log(blogList[0]);
+    console.log(blogList);
 
     return (
         <>
