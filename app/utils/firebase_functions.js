@@ -32,12 +32,13 @@ export const saveBlog = async (data)=>{
 
 //retrieve blog
 export const retrieveBlog = async ()=>{
+    console.log('retrieve called');
+
     try {
         const blogList = [];
         await runTransaction(db,
             async ()=>{
                 const documentSnapshots = await getDocs(collection(db,"blogs"));
-
                 const imageListRef = ref(storage,'images/');
                 const response = await listAll(imageListRef);
 
