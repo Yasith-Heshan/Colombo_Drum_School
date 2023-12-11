@@ -59,8 +59,10 @@ export const retrieveBlog = async ()=>{
                             }
                         }
                     )
+                    console.log(data);
                     blogList.push(data);
                 });
+                console.log(blogList);
             }
 
         );
