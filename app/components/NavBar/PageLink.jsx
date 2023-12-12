@@ -1,7 +1,7 @@
 import Link from "next/link";
 import {useEffect, useState} from "react";
 
-const PageLink = ({pages, title, index,pathname}) =>{
+const PageLink = ({pages, title,pathname}) =>{
     const [background, setBackground] = useState('')
     useEffect(()=>{
         if(pathname===pages[title]){
@@ -10,7 +10,7 @@ const PageLink = ({pages, title, index,pathname}) =>{
 
     },[pages, pathname, title])
    return (
-       <li key={index}><Link className={`${background}`} href={pages[title]}>{title}</Link></li>
+       <Link className={`${background}`} href={pages[title]}>{title}</Link>
    )
 }
 

@@ -5,15 +5,15 @@ import Blog from "@/app/components/Blog";
 import NavBar from "@/app/components/NavBar/NavBar";
 import Footer from "@/app/components/Footer";
 
-const ViewBlogs = ()=>{
+const ViewBlogs = () => {
 
     const [blogList, setBlogList] = useState([])
 
     useEffect(() => {
         return async () => {
             const data = await retrieveBlog();
-            console.log('from view page',data);
-            setBlogList([...blogList,...data]);
+            console.log('from view page', data);
+            setBlogList([...blogList, ...data]);
         };
     }, []);
 
@@ -21,19 +21,20 @@ const ViewBlogs = ()=>{
 
     return (
         <>
-            <NavBar/>
-            {
-            blogList[0] && (
-                <div className="grid grid-cols-3">
-                    {
-                        blogList.map((data,index)=> {
-                                return <Blog key={index} data={data}/>
+            <NavBar>
+                {
+                    blogList[0] && (
+                        <div className="sm:grid sm:grid-cols-2 lg:grid-cols-3">
+                            {
+                                blogList.map((data, index) => {
+                                        return <Blog key={index} data={data}/>
+                                    }
+                                )
                             }
-                        )
-                    }
-                </div>
-            )
-        }
+                        </div>
+                    )
+                }
+            </NavBar>
             <Footer/>
         </>
     );
