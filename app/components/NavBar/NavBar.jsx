@@ -55,7 +55,7 @@ const NavBar = ({children}) => {
                                     )
                                 }
                             </ul>
-                            <div className="-ml-5 dropdown dropdown-end">
+                            <div className="-ml-2 dropdown dropdown-end">
                                 <div tabIndex={0} role="button" className="btn btn-ghost rounded-btn">Pubudu N.</div>
                                 <ul tabIndex={0} className="menu dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-52 mt-4">
                                     <li><a>Create Student</a></li>
