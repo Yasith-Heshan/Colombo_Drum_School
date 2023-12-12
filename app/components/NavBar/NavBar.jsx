@@ -21,43 +21,11 @@ const NavBar = ({children}) => {
     const [homePageColor, setHomePageColor] = useState('text-gray-400');
     return (
         <>
-            {/*<div className="sm:navbar bg-base-100">*/}
-            {/*    <div className="flex-1">*/}
-            {/*        <div className={'btn btn-ghost'}>*/}
-            {/*            <Image className={'rounded-full'} src={'/logo.jpg'} alt={'logo'} width={30} height={30}/>*/}
-            {/*            <Link href={'/'} className={`${homePageColor}  text-xl`}>CDS</Link>*/}
-            {/*        </div>*/}
-            {/*    </div>*/}
-            {/*    <div className="flex-none">*/}
-            {/*        <ul className="menu menu-horizontal px-1">*/}
-            {/*            {*/}
-            {/*                Object.keys(pages).map(*/}
-            {/*                    (title, index) => (*/}
-            {/*                        <PageLink key={index} pages={pages} title={title} index={index}*/}
-            {/*                                  pathname={pathname}/>*/}
-            {/*                    )*/}
-            {/*                )*/}
-            {/*            }*/}
-            {/*            <li>*/}
-            {/*                <details>*/}
-            {/*                    <summary>*/}
-            {/*                        Pubudu*/}
-            {/*                    </summary>*/}
-            {/*                    <ul className="p-2 bg-base-100 rounded-t-none">*/}
-            {/*                        <li><a>Create Student User</a></li>*/}
-            {/*                        <li><a>SignOut</a></li>*/}
-            {/*                    </ul>*/}
-            {/*                </details>*/}
-            {/*            </li>*/}
-            {/*        </ul>*/}
-            {/*    </div>*/}
-            {/*</div>*/}
-
             <div className="drawer">
                 <input id="my-drawer-3" type="checkbox" className="drawer-toggle"/>
                 <div className="drawer-content flex flex-col">
                     {/* Navbar */}
-                    <div className="w-full navbar bg-base-300">
+                    <div className="w-full navbar bg-base-500">
                         <div className="flex-none lg:hidden">
                             <label htmlFor="my-drawer-3" aria-label="open sidebar" className="btn btn-square btn-ghost">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -87,7 +55,7 @@ const NavBar = ({children}) => {
                                     )
                                 }
                             </ul>
-                            <div className="dropdown dropdown-end">
+                            <div className="-ml-5 dropdown dropdown-end">
                                 <div tabIndex={0} role="button" className="btn btn-ghost rounded-btn">Pubudu N.</div>
                                 <ul tabIndex={0} className="menu dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-52 mt-4">
                                     <li><a>Create Student</a></li>
@@ -101,7 +69,6 @@ const NavBar = ({children}) => {
                 <div className="drawer-side sm:hidden">
                     <label htmlFor="my-drawer-3" aria-label="close sidebar" className="drawer-overlay"></label>
                     <ul className="menu p-4 w-80 min-h-full bg-base-200">
-
                         {
                             Object.keys(pages).map(
                                 (title, index) => (
