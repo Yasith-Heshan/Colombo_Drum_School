@@ -11,8 +11,9 @@ const Blog = ({data})=>{
                 <Image
                     src = {thumbnail}
                     fill={true}
-                    objectFit='cover'
+                    sizes={"(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"}
                     alt={title}
+                    priority={true}
                 />
             </div>
             <p className={'text-3xl font-bold text-center m-1'}>{title}</p>

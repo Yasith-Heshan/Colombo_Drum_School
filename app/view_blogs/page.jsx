@@ -17,14 +17,14 @@ const ViewBlogs = () => {
         };
     }, []);
 
-    console.log(blogList);
+    console.log('bloglist:',blogList);
 
     return (
         <>
             <NavBar>
                 {
                     blogList[0] && (
-                        <div className="sm:grid sm:grid-cols-2 lg:grid-cols-3">
+                        <div className="mb-32 sm:grid sm:grid-cols-2 lg:grid-cols-3">
                             {
                                 blogList.map((data, index) => {
                                         return <Blog key={index} data={data}/>
