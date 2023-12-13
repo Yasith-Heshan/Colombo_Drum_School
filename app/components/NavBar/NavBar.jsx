@@ -25,7 +25,7 @@ const Header = () => {
             <div className="flex items-center justify-between px-4 py-3 sm:p-0">
                 <Link href={HOME_ROUTE}>
                     <div className={'btn btn-ghost flex justify-center items-center'}>
-                        <Image width={30} height={30} className="h-8 rounded-full" src="/logo.jpg" alt="Workcation"/>
+                        <Image width={30} height={30} className="rounded-full" src="/logo.jpg" alt="Workcation"/>
                         <p className={`${pathname===HOME_ROUTE?'text-white':'text-gray-400'} m-1 font-bold text-xl`}>CDS</p>
                     </div>
                 </Link>

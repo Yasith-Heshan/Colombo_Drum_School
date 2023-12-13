@@ -32,10 +32,10 @@ export const saveBlog = async (data)=>{
 
 //retrieve blog
 export const retrieveBlog = async ()=>{
-    console.log('retrieve called');
+    // console.log('retrieve called');
 
     try {
-        console.log('try block')
+        // console.log('try block')
         const blogList = [];
         await runTransaction(db,
             async ()=>{
@@ -51,7 +51,7 @@ export const retrieveBlog = async ()=>{
                         blog: documentData.blog,
                         createdAt: documentData.createdAt,
                     }
-                    console.log(documentData);
+                    // console.log(documentData);
                     response.items.forEach(
                         async (item)=>{
                             if(item._location.path === documentData.thumbnail){
@@ -59,10 +59,10 @@ export const retrieveBlog = async ()=>{
                             }
                         }
                     )
-                    console.log(data);
+                    // console.log(data);
                     blogList.push(data);
                 });
-                console.log(blogList);
+                // console.log(blogList);
             }
 
         );

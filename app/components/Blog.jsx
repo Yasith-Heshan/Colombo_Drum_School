@@ -5,6 +5,7 @@ const Blog = ({data})=>{
     const timestamp = data.createdAt.toDate();
     const time = timestamp.toLocaleTimeString();
     const date = timestamp.toLocaleDateString();
+    console.log(data);
     return (
         <div className={'h-[30vh] rounded shadow-lg shadow-gray-500 m-5 pb-2'}>
             <div className={'h-3/4 w-full border rounded-t relative'}>
