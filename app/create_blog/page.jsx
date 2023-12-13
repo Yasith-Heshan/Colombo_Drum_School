@@ -35,7 +35,7 @@ const CreateBlog = () => {
 
     return (
         <>
-            <NavBar>
+            <NavBar/>
                 <div className={'m-10 p-10 bg-gray-800 rounded shadow-lg shadow-gray-400'}>
                     <div className="sm:flex sm:justify-between sm:items-center">
                         <input className={'input input-bordered w-full sm:max-w-xs m-1 placeholder:text-center'}
@@ -59,7 +59,6 @@ const CreateBlog = () => {
                     </div>
 
                 </div>
-            </NavBar>
             <Footer/>
         </>
 

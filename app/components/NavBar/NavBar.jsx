@@ -1,99 +1,77 @@
 "use client"
+import {useState} from 'react';
 import Link from "next/link";
-
-import {useEffect, useState} from "react";
+import {CREATE_BLOG, HOME_ROUTE, VIEW_BLOGS} from "@/app/utils/routes";
 import {usePathname} from "next/navigation";
-import PageLink from "@/app/components/NavBar/PageLink";
+import {shortenName} from "@/app/utils/support_functions";
 import Image from "next/image";
 
-const NavBar = ({children}) => {
+const Header = () => {
+    const [isOpen, setIsOpen] = useState(false);
     const pathname = usePathname();
-    const pages = {
-        'Create Blog': '/create_blog',
-        'View Blogs': '/view_blogs',
+
+    const navItems ={
+        "Create Blog":CREATE_BLOG,
+        "View Blog":VIEW_BLOGS
     }
-    useEffect(() => {
-        if (pathname === '/') {
-            setHomePageColor('text-white')
-        }
 
-    }, [pathname])
-    const [homePageColor, setHomePageColor] = useState('text-gray-400');
+    const user = {
+        name: 'Pubudu Niroshan'
+    }
+
+
     return (
-        <>
-            <div className="drawer">
-                <input id="my-drawer-3" type="checkbox" className="drawer-toggle"/>
-                <div className="drawer-content flex flex-col">
-                    {/* Navbar */}
-                    <div className="w-full navbar bg-base-500">
-                        <div className="flex-none lg:hidden">
-                            <label htmlFor="my-drawer-3" aria-label="open sidebar" className="btn btn-square btn-ghost">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                     className="inline-block w-6 h-6 stroke-current">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
-                                          d="M4 6h16M4 12h16M4 18h16"></path>
-                                </svg>
-                            </label>
-                        </div>
-                        <div className="flex-1">
-                            <div className={'btn btn-ghost'}>
-                                <Image className={'rounded-full'} src={'/logo.jpg'} alt={'logo'} width={30}
-                                       height={30}/>
-                                <Link href={'/'} className={`${homePageColor}  text-xl`}>CDS</Link>
-                            </div>
-                        </div>
-                        <div className="flex-none hidden lg:block">
-                            <ul className="menu menu-horizontal">
-                                {
-                                    Object.keys(pages).map(
-                                        (title, index) => (
-                                            <li key={index}>
-                                                <PageLink pages={pages} title={title} pathname={pathname}/>
-                                            </li>
-
-                                        )
-                                    )
-                                }
-                            </ul>
-                            <div className="-ml-2 dropdown dropdown-end">
-                                <div tabIndex={0} role="button" className="btn btn-ghost rounded-btn">Pubudu N.</div>
-                                <ul tabIndex={0} className="menu dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-52 mt-4">
-                                    <li><a>Create Student</a></li>
-                                    <li><a>Sign Out</a></li>
-                                </ul>
-                            </div>
-                        </div>
+        <header className="bg-gray-900 sm:flex sm:justify-between sm:items-center sm:px-4 sm:py-3">
+            <div className="flex items-center justify-between px-4 py-3 sm:p-0">
+                <Link href={HOME_ROUTE}>
+                    <div className={'btn btn-ghost flex justify-center items-center'}>
+                        <Image width={30} height={30} className="h-8 rounded-full" src="/logo.jpg" alt="Workcation"/>
+                        <p className={`${pathname===HOME_ROUTE?'text-white':'text-gray-400'} m-1 font-bold text-xl`}>CDS</p>
                     </div>
-                    {children}
-                </div>
-                <div className="drawer-side sm:hidden">
-                    <label htmlFor="my-drawer-3" aria-label="close sidebar" className="drawer-overlay"></label>
-                    <ul className="menu p-4 w-80 min-h-full bg-base-200">
-                        {
-                            Object.keys(pages).map(
-                                (title, index) => (
-                                    <li key={index}>
-                                        <PageLink pages={pages} title={title} index={index}
-                                                  pathname={pathname}/>
-                                    </li>
-
-                                )
-                            )
-                        }
-                        <div className="dropdown dropdown-end">
-                            <div tabIndex={0} role="button" className="btn btn-ghost rounded-btn">Pubudu N.</div>
-                            <ul tabIndex={0} className="menu dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-52 mt-4">
-                                <li><a>Create Student</a></li>
-                                <li><a>Sign Out</a></li>
-                            </ul>
-                        </div>
-                    </ul>
-
+                </Link>
+                <div className="sm:hidden">
+                    <button
+                        onClick={() => setIsOpen(!isOpen)}
+                        type="button"
+                        className="block text-gray-500 hover:text-white focus:text-white focus:outline-none"
+                    >
+                        <svg className="h-6 w-6 fill-current" viewBox="0 0 24 24">
+                            {isOpen ? (
+                                <path
+                                    fillRule="evenodd"
+                                    d="M18.278 16.864a1 1 0 0 1-1.414 1.414l-4.829-4.828-4.828 4.828a1 1 0 0 1-1.414-1.414l4.828-4.829-4.828-4.828a1 1 0 0 1 1.414-1.414l4.829 4.828 4.828-4.828a1 1 0 1 1 1.414 1.414l-4.828 4.829 4.828 4.828z"
+                                />
+                            ) : (
+                                <path
+                                    fillRule="evenodd"
+                                    d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z"
+                                />
+                            )}
+                        </svg>
+                    </button>
                 </div>
             </div>
-        </>
+            <nav className={`${isOpen ? 'block' : 'hidden'} px-2 pt-2 pb-4 sm:flex sm:p-0`}>
+
+                {
+                    Object.keys(navItems).map(
+                        (navItem, index)=>(
+                            <Link key={index} href={navItems[navItem]} className={`${pathname===navItems[navItem]?'bg-pink-600':''} px-2 py-1 text-white font-semibold rounded btn btn-ghost flex justify-center items-center`}>
+                                {navItem}
+                            </Link>
+                        )
+                    )
+                }
+                <div className="dropdown dropdown-bottom sm:dropdown-end flex justify-center items-center">
+                    <div tabIndex={0} role="button" className="btn btn-ghost text-white px-2 py-1">{shortenName(user.name)}</div>
+                    <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow text-white bg-gray-600 rounded-box w-52">
+                        <li className={'hover:bg-gray-500 text-white rounded-2xl'}><Link href={'#'}>Create Student</Link></li>
+                        <li className={'hover:bg-gray-500 text-white rounded-2xl'}><Link href={'#'}>Sign Out</Link></li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
     );
-}
+};
 
-
-export default NavBar;
+export default Header;

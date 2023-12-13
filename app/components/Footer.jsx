@@ -3,7 +3,7 @@ import Image from "next/image";
 
 const Footer = () =>{
     return (
-        <footer className="relative sm:fixed bottom-0 footer items-center p-4 bg-neutral text-neutral-content">
+        <footer className="fixed bottom-0 footer items-center p-4 bg-neutral text-neutral-content">
             <aside className="items-center grid-flow-col">
                 <Image src={'/logo.jpg'} alt={'logo'} width={15} height={15}/>
                 <p>Copyright © 2023 - All right reserved</p>
