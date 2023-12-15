@@ -11,11 +11,12 @@ const ViewBlogs = () => {
 
 
     useEffect(() => {
+        console.log('useeffect')
         dispatch(startGettingBLogsList());
     }, []);
 
     const {blogs,loading} = useSelector((state)=>state.viewBlogData);
-    console.log(blogs);
+    console.log('from page:',blogs);
 
     return (
         <>
