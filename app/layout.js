@@ -1,6 +1,8 @@
 import {Inter} from 'next/font/google'
 import './globals.css'
 import { Providers } from './provider';
+import NavBar from "@/app/components/NavBar/NavBar";
+import Footer from "@/app/components/Footer";
 
 
 const inter = Inter({subsets: ['latin']})
@@ -18,10 +20,13 @@ export default function RootLayout({children}) {
             <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"/>
             <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"/>
             <link rel="manifest" href="/site.webmanifest"/>
+            <title>Colombo Drum School</title>
         </head>
             <body className={inter.className}>
             <Providers>
-                {children}
+                <NavBar/>
+                    {children}
+                <Footer/>
             </Providers>
             </body>
         </html>
