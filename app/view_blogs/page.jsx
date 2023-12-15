@@ -1,32 +1,37 @@
 "use client"
-import {retrieveBlog} from "@/app/utils/firebase_functions";
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import Blog from "@/app/components/Blog";
 import NavBar from "@/app/components/NavBar/NavBar";
 import Footer from "@/app/components/Footer";
+import {useDispatch, useSelector} from 'react-redux'
+import {startGettingBLogsList} from "@/app/view_blogs/viewBlogsSlice";
 
 const ViewBlogs = () => {
+    const dispatch = useDispatch();
 
-    const [blogList, setBlogList] = useState([])
 
     useEffect(() => {
-        return async () => {
-            const data = await retrieveBlog();
-            // console.log('from view page', data);
-            setBlogList([...blogList, ...data]);
-        };
+        dispatch(startGettingBLogsList());
     }, []);
 
-    // console.log('bloglist:',blogList);
+    const {blogs,loading} = useSelector((state)=>state.viewBlogData);
+    console.log(blogs);
 
     return (
         <>
-            <NavBar>
+            <NavBar/>
                 {
-                    blogList[0] && (
+                    loading && (
+                        <div className={'flex justify-center items-center m-10'}>
+                            <span className="loading loading-spinner loading-lg text-pink-600"></span>
+                        </div>
+                    )
+                }
+                {
+                    blogs && (
                         <div className="mb-32 sm:grid sm:grid-cols-2 lg:grid-cols-3">
                             {
-                                blogList.map((data, index) => {
+                                blogs.map((data, index) => {
                                         return <Blog key={index} data={data}/>
                                     }
                                 )
@@ -34,7 +39,6 @@ const ViewBlogs = () => {
                         </div>
                     )
                 }
-            </NavBar>
             <Footer/>
         </>
     );

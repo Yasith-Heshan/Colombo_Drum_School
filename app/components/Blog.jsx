@@ -2,9 +2,7 @@ import Image from 'next/image'
 const Blog = ({data})=>{
     const title = data.title;
     const thumbnail = data.thumbnail;
-    const timestamp = data.createdAt.toDate();
-    const time = timestamp.toLocaleTimeString();
-    const date = timestamp.toLocaleDateString();
+    const date = data.createdAt;
     console.log(data);
     return (
         <div className={'h-[30vh] rounded shadow-lg shadow-gray-500 m-5 pb-2'}>
@@ -18,7 +16,7 @@ const Blog = ({data})=>{
                 />
             </div>
             <p className={'text-3xl font-bold text-center m-1'}>{title}</p>
-            <p className={'text-center text-gray-500'}>{date} {time}</p>
+            <p className={'text-center text-gray-500'}>{date}</p>
         </div>
     );
 }

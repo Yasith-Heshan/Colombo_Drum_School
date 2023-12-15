@@ -5,72 +5,57 @@ import {v4} from "uuid"
 
 
 //save blog
-export const saveBlog = async (data)=>{
+export const saveBlog = async (data) => {
     const image = data.image;
-    const imagePath = `images/${image.name+v4()}`
+    const imagePath = `images/${image.name + v4()}`
 
 
-    try{
-        await runTransaction(db,async ()=>{
-            const imageRef = ref(storage,imagePath)
-             await uploadBytes(imageRef, image);
+    await runTransaction(db, async () => {
+        const imageRef = ref(storage, imagePath)
+        await uploadBytes(imageRef, image);
 
-             await addDoc(collection(db,'blogs'),{
-                title:data.title,
-                thumbnail: imagePath,
-                blog: data.content,
-                createdAt: serverTimestamp()
-            });
-            console.log('success');
-        })
-    }catch (e){
-        console.error('Transaction Failed',e);
-    }
+        await addDoc(collection(db, 'blogs'), {
+            title: data.title,
+            thumbnail: imagePath,
+            blog: data.content,
+            createdAt: serverTimestamp()
+        });
+    })
 
 
 }
 
 //retrieve blog
-export const retrieveBlog = async ()=>{
-    // console.log('retrieve called');
-
-    try {
-        // console.log('try block')
+export const retrieveBlogs = async () => {
         const blogList = [];
         await runTransaction(db,
-            async ()=>{
-                const documentSnapshots = await getDocs(collection(db,"blogs"));
-                const imageListRef = ref(storage,'images/');
+            async () => {
+                const documentSnapshots = await getDocs(collection(db, "blogs"));
+                const imageListRef = ref(storage, 'images/');
                 const response = await listAll(imageListRef);
 
 
-                documentSnapshots.forEach((doc)=>{
+                documentSnapshots.forEach((doc) => {
                     const documentData = doc.data()
-                    const data= {
+                    const data = {
                         title: documentData.title,
                         blog: documentData.blog,
-                        createdAt: documentData.createdAt,
+                        createdAt: documentData.createdAt.toDate().toLocaleDateString(),
                     }
-                    // console.log(documentData);
                     response.items.forEach(
-                        async (item)=>{
-                            if(item._location.path === documentData.thumbnail){
+                        async (item) => {
+                            if (item._location.path === documentData.thumbnail) {
                                 data['thumbnail'] = await getDownloadURL(item);
                             }
                         }
-                    )
-                    // console.log(data);
+                    );
                     blogList.push(data);
                 });
-                // console.log(blogList);
             }
-
         );
+
         return blogList;
-    }catch (e){
-        console.error('Transaction Failed',e);
-        return [];
-    }
+
 
 
 }
