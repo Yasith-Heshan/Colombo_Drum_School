@@ -2,7 +2,7 @@
 const BlogDetials = () => {
     return (
         <div className={'bg-white text-black flex justify-center items-center'}>
-            <style>{`
+            <style jsx>{`
               h1 {
                 font-size: 2.25rem; /* Equivalent to text-4xl */
                 font-weight: 800; /* Equivalent to font-extrabold */
