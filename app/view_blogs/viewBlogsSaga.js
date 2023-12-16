@@ -23,6 +23,7 @@ function* addNew(action){
 function* getBlogs(){
     try{
         const blogs = yield call(retrieveBlogs);
+        console.log(blogs);
         yield put(getBlogListSuccess(blogs));
     }catch (e){
         console.error(e);

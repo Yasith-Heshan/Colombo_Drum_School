@@ -27,37 +27,32 @@ export const saveBlog = async (data) => {
 
 //retrieve blog
 export const retrieveBlogs = async () => {
-        const blogList = [];
-        await runTransaction(db,
-            async () => {
-                const documentSnapshots = await getDocs(collection(db, "blogs"));
-                const imageListRef = ref(storage, 'images/');
-                const response = await listAll(imageListRef);
+    const blogList = [];
+    await runTransaction(db, async () => {
+        const documentSnapshots = await getDocs(collection(db, "blogs"));
+        const imageListRef = ref(storage, 'images/');
+        const response = await listAll(imageListRef);
 
+        await Promise.all(documentSnapshots.docs.map(async (doc) => {
+            const documentData = doc.data();
+            const data = {
+                title: documentData.title,
+                blog: documentData.blog,
+                createdAt: documentData.createdAt.toDate().toLocaleDateString(),
+            };
 
-                documentSnapshots.forEach((doc) => {
-                    const documentData = doc.data()
-                    const data = {
-                        title: documentData.title,
-                        blog: documentData.blog,
-                        createdAt: documentData.createdAt.toDate().toLocaleDateString(),
-                    }
-                    response.items.forEach(
-                        async (item) => {
-                            if (item._location.path === documentData.thumbnail) {
-                                data['thumbnail'] = await getDownloadURL(item);
-                            }
-                        }
-                    );
-                    blogList.push(data);
-                });
+            const matchingImage = response.items.find((item) => item._location.path === documentData.thumbnail);
+
+            if (matchingImage) {
+                data['thumbnail'] = await getDownloadURL(matchingImage);
             }
-        );
 
-        return blogList;
+            blogList.push(data);
+        }));
+    });
 
+    return blogList;
+};
 
-
-}
 
 
