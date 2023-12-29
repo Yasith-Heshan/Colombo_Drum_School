@@ -1,41 +1,41 @@
-h1{
+.h1{
     @apply text-4xl;
     @apply font-extrabold;
 }
 
-h2{
+.h2{
     @apply text-3xl;
     @apply font-bold;
 }
 
-h3{
+.h3{
     @apply text-xl;
     @apply font-semibold;
 }
-ol{
+.ol{
     @apply list-decimal;
     @apply list-inside;
     @apply pl-5
 }
 
-ul{
+.ul{
     @apply list-disc;
     @apply list-inside;
     @apply pl-5
 }
 
-a{
+.a{
     @apply text-blue-500 hover:underline;
 }
 
-pre{
+.pre{
     @apply bg-gray-200 text-gray-800 p-4 rounded-md overflow-x-auto;
 }
 
-code{
+.code{
     @apply font-mono;
 }
 
-blockquote{
+.blockquote{
     @apply border-l-4 border-gray-500 pl-4 italic
 }

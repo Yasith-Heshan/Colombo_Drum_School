@@ -11,7 +11,7 @@ export const BlogContext  = ({children})=>{
 
 
     useEffect(() => {
-        setValue(blogs);
+        setValue([...blogs.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))]);
     }, [blogs]);
 
     return (

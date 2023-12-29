@@ -22,12 +22,20 @@ export const useLocalStorage =(key,initialValue)=>{
             setStoredValue(value);
             if(typeof window !== 'undefined'){
                 localStorage.setItem(key,JSON.stringify(value));
-
             }
         }catch (e) {
             console.error(e)
         }
     }
+
+    const removeItem = (key)=>{
+        try {
+           localStorage.removeItem(key)
+        }catch (e) {
+            console.error(e)
+        }
+    }
+
 
 
     return [storedValue,setValue];

@@ -12,12 +12,14 @@ const ViewBlogs = () => {
     const {blogs, setBlogs} = useBlogs();
 
 
+
     useEffect(() => {
+        localStorage.removeItem('blogs');
         setLoading(true);
         retrieveBlogs()
             .then(
                 (blogs) => {
-                    setBlogs(blogs);
+                    setBlogs([...blogs.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))]);
                 }
             ).catch(
             (e) => {
@@ -42,7 +44,7 @@ const ViewBlogs = () => {
                 )
             }
             {
-                blogs && (
+                !loading && blogs && (
                     <div className={'flex justify-center items-center'}>
                         <div className="mb-32 sm:grid sm:grid-cols-2 lg:grid-cols-3">
                             {

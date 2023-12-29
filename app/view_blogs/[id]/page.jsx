@@ -1,9 +1,8 @@
 "use client"
-import {useEffect, useState} from "react";
-import {toast} from "sonner";
+import {useState} from "react";
 import {useBlogs} from "@/app/context/blogContext";
-import ReactHtmlParser from 'react-html-parser';
-import { convertNodeToElement } from 'react-html-parser';
+import parse from 'html-react-parser';
+import './styles.css'
 
 const BlogDetials = ({params}) => {
     const {blogs} = useBlogs();
@@ -11,30 +10,88 @@ const BlogDetials = ({params}) => {
     const [blog, setBlog] = useState()
     const id = params.id;
 
-    useEffect(() => {
-        if(blogs[id]){
-            setBlog(blogs[id].blog);
-        }
-    }, [blogs,id]);
-
-
-
-    function transform(node,index) {
-        // do not render any <span> tags
-        if (node.type === 'tag' && node.name === 'h1') {
+    const transformH1 = (node) => {
+        if (node.name === 'h1') {
+            // Modify the className of the h1 tag
             node.attribs = {
                 ...node.attribs,
-                class: 'font-bold text-3xl',
+                className: 'h1',
             };
-            return convertNodeToElement(node, index, transform);
         }
-    }
-    const options = {
-        decodeEntities: true,
-        transform
-    };
 
-    const parsedHtml = ReactHtmlParser(blog, options);
+        if (node.name === 'h2') {
+            // Modify the className of the h1 tag
+            node.attribs = {
+                ...node.attribs,
+                className: 'h2',
+            };
+        }
+
+        if (node.name === 'h3') {
+            // Modify the className of the h1 tag
+            node.attribs = {
+                ...node.attribs,
+                className: 'h3',
+            };
+        }
+
+        if (node.name === 'ol') {
+            // Modify the className of the h1 tag
+            node.attribs = {
+                ...node.attribs,
+                className: 'ol',
+            };
+        }
+
+        if (node.name === 'ul') {
+            // Modify the className of the h1 tag
+            node.attribs = {
+                ...node.attribs,
+                className: 'ul',
+            };
+        }
+
+        if (node.name === 'a') {
+            // Modify the className of the h1 tag
+            node.attribs = {
+                ...node.attribs,
+                className: 'a',
+            };
+        }
+
+        if (node.name === 'pre') {
+            // Modify the className of the h1 tag
+            node.attribs = {
+                ...node.attribs,
+                className: 'pre',
+            };
+        }
+
+        if (node.name === 'code') {
+            // Modify the className of the h1 tag
+            node.attribs = {
+                ...node.attribs,
+                className: 'code',
+            };
+        }
+
+        if (node.name === 'blockquote') {
+            // Modify the className of the h1 tag
+            node.attribs = {
+                ...node.attribs,
+                className: 'blockquote',
+            };
+        }
+
+
+
+
+
+
+        return node;
+    };
+    const parsedHtml = parse(blogs[id].blog, {replace: transformH1});
+
 
     return (
         <div className={'bg-white text-black flex justify-center items-center'}>
@@ -96,7 +153,7 @@ const BlogDetials = ({params}) => {
             `}
             </style>
 
-            <div className={'mb-40'}>{ parsedHtml }</div>
+            <div className={'mb-40'}>{parsedHtml}</div>
 
 
         </div>
