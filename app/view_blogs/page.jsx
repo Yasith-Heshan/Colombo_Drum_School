@@ -1,20 +1,36 @@
 "use client"
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import Blog from "@/app/components/Blog";
-import {useDispatch, useSelector} from 'react-redux'
-import {startGettingBLogsList} from "@/app/view_blogs/viewBlogsSlice";
 import Link from "next/link";
 import {VIEW_BLOGS} from "@/app/utils/routes";
+import {retrieveBlogs} from "@/app/utils/firebase_functions";
+import {toast} from "sonner";
+import {useBlogs} from "@/app/context/blogContext";
 
 const ViewBlogs = () => {
-    const dispatch = useDispatch();
+    const [loading, setLoading] = useState(false);
+    const {blogs, setBlogs} = useBlogs();
 
 
     useEffect(() => {
-        dispatch(startGettingBLogsList());
+        setLoading(true);
+        retrieveBlogs()
+            .then(
+                (blogs) => {
+                    setBlogs(blogs);
+                }
+            ).catch(
+            (e) => {
+                console.error(e);
+                toast.error('Blogs fetching failed');
+            }
+        ).finally(
+            () => {
+                setLoading(false);
+            }
+        )
     }, []);
 
-    const {blogs, loading} = useSelector((state) => state.viewBlogData);
 
     return (
         <>
@@ -27,17 +43,19 @@ const ViewBlogs = () => {
             }
             {
                 blogs && (
-                    <div className="mb-32 sm:grid sm:grid-cols-2 lg:grid-cols-3">
-                        {
-                            blogs.map((data, index) => {
-                                    return (
-                                        <Link key={index} href={`${VIEW_BLOGS}/${index}`}>
-                                            <Blog data={data}/>
-                                        </Link>
-                                    )
-                                }
-                            )
-                        }
+                    <div className={'flex justify-center items-center'}>
+                        <div className="mb-32 sm:grid sm:grid-cols-2 lg:grid-cols-3">
+                            {
+                                blogs.map((data, index) => {
+                                        return (
+                                            <Link key={index} href={`${VIEW_BLOGS}/${index}`}>
+                                                <Blog data={data}/>
+                                            </Link>
+                                        )
+                                    }
+                                )
+                            }
+                        </div>
                     </div>
                 )
             }

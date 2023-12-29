@@ -1,5 +1,41 @@
 "use client"
-const BlogDetials = () => {
+import {useEffect, useState} from "react";
+import {toast} from "sonner";
+import {useBlogs} from "@/app/context/blogContext";
+import ReactHtmlParser from 'react-html-parser';
+import { convertNodeToElement } from 'react-html-parser';
+
+const BlogDetials = ({params}) => {
+    const {blogs} = useBlogs();
+    const [loading, setLoading] = useState(false);
+    const [blog, setBlog] = useState()
+    const id = params.id;
+
+    useEffect(() => {
+        if(blogs[id]){
+            setBlog(blogs[id].blog);
+        }
+    }, [blogs,id]);
+
+
+
+    function transform(node,index) {
+        // do not render any <span> tags
+        if (node.type === 'tag' && node.name === 'h1') {
+            node.attribs = {
+                ...node.attribs,
+                class: 'font-bold text-3xl',
+            };
+            return convertNodeToElement(node, index, transform);
+        }
+    }
+    const options = {
+        decodeEntities: true,
+        transform
+    };
+
+    const parsedHtml = ReactHtmlParser(blog, options);
+
     return (
         <div className={'bg-white text-black flex justify-center items-center'}>
             <style jsx>{`
@@ -57,35 +93,10 @@ const BlogDetials = () => {
                 font-style: italic;
               }
 
-            `}</style>
-            <div>
-                <h1>Heading 01</h1><p><br/></p><h2>Heading 02</h2><p><br/></p><h3>Heading 03</h3><p><br/></p>
-                <p>This <strong>Bold
-                    Text</strong></p><p><br/></p><p>This is <u>underlined</u> text</p><p><br/></p><p>This
-                is <em>Italic </em>Text
-            </p><p><br/></p><p>This <s>strikethrough</s> text</p><p><br/></p>
-                <blockquote>This is Quate</blockquote>
-                <p><br/></p><p>This is numbered list:</p>
-                <ol>
-                    <li>one</li>
-                    <li>two</li>
-                    <li>three</li>
-                </ol>
-                <p><br/></p><p>This is unordered list:</p>
-                <ul>
-                    <li>one</li>
-                    <li>two</li>
-                    <li>three</li>
-                </ul>
-                <p><br/></p><p>This is link:</p><p><a href="https://colombo-drum-school.vercel.app/view_blogs"
-                                                      rel="noopener noreferrer"
-                                                      target="_blank">https://colombo-drum-school.vercel.app/view_blogs</a>
-            </p><p><br/></p><p>This is <span style={{color: 'rgb(230, 0, 0)'}}>red</span> text</p><p><br/></p><p>This is
-                code:</p>
-                <pre className="ql-syntax" spellCheck="false">&lt;html&gt;&lt;/html&gt;
-            </pre>
-                <p><br/></p>
-            </div>
+            `}
+            </style>
+
+            <div className={'mb-40'}>{ parsedHtml }</div>
 
 
         </div>

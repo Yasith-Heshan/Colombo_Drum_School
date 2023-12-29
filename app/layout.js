@@ -1,8 +1,9 @@
 import {Inter} from 'next/font/google'
 import './globals.css'
-import { Providers } from './provider';
 import NavBar from "@/app/components/NavBar/NavBar";
 import Footer from "@/app/components/Footer";
+import CustomToast from "@/app/components/CustomToast";
+import {BlogContext} from "@/app/context/blogContext";
 
 
 const inter = Inter({subsets: ['latin']})
@@ -22,13 +23,14 @@ export default function RootLayout({children}) {
             <link rel="manifest" href="/site.webmanifest"/>
             <title>Colombo Drum School</title>
         </head>
-            <body className={inter.className}>
-            <Providers>
-                <NavBar/>
-                    {children}
-                <Footer/>
-            </Providers>
-            </body>
+        <body className={inter.className}>
+        <BlogContext>
+            <NavBar/>
+            {children}
+            <CustomToast/>
+            <Footer/>
+        </BlogContext>
+        </body>
         </html>
     )
 }
