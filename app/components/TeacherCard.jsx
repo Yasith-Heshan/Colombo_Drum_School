@@ -22,6 +22,20 @@ const TeacherCard = ({imagepath,name}) => {
                 >
                     <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
                 </svg>
+                <p className="text-gray-700">Trinity Grade 08 Drummer</p>
+            </div>
+            <div className="flex items-center mb-2">
+                <svg
+                    className="w-4 h-4 text-gray-500 mr-2"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    viewBox="0 0 24 24"
+                >
+                    <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                </svg>
                 <p className="text-gray-700">10+ years of experience</p>
             </div>
             <div className="flex items-center mb-2">
