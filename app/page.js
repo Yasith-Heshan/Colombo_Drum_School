@@ -17,8 +17,8 @@ export default function Home() {
                     Get Started
                 </Link>
             </section>
-            <div className={'sm:grid sm:grid-cols-2'}>
-                <section className="my-16">
+            <div className={''}>
+                <section className="border-2">
                     {/* Use your existing Carousel component here */}
                     <Carousel />
                 </section>

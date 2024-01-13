@@ -12,7 +12,7 @@ const Carousel = () => {
         },
     ]
     return (
-        <div className={'p-10'}>
+        <div className={'p-10 bg-gray-600'}>
             <div className={'flex justify-center items-center'}>
             <div className="h-[65vh] carousel rounded-box">
                 {
