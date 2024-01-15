@@ -8,7 +8,6 @@ export default function Home() {
     return (
         <div className={'sm:px-20'}>
             <section className="px-5 sm:px-0 bg-light text-gray-600 dark:bg-gray-700 dark:text-white text-center py-16">
-                <h1 className="text-4xl font-bold mb-4">Colombo Drum School</h1>
                 <p className="mb-8 font-sevillana text-2xl">
                     {content}
                 </p>

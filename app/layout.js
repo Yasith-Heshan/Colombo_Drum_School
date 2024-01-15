@@ -6,6 +6,7 @@ import {BlogContext} from "@/app/context/blogContext";
 import {Flowbite, ThemeModeScript} from 'flowbite-react';
 import CustomFooter from "@/app/components/Footer";
 import {customTheme} from "@/app/utils/theme";
+import {AuthContextProvider} from "@/app/context/authContext";
 
 
 const inter = Inter({subsets: ['latin']})
@@ -20,26 +21,26 @@ export default function RootLayout({children}) {
         <html lang="en">
         <head>
             <ThemeModeScript/>
-            <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>
-            <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"/>
-            <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"/>
-            <link rel="manifest" href="/site.webmanifest"/>
+            <meta charSet='UTF-8'/>
+            <meta name='viewport' content='width=device-width, initial-scale=1.0'/>
             <link rel="preconnect" href="https://fonts.googleapis.com"/>
             <link rel="preconnect" href="https://fonts.gstatic.com"/>
             <link href="https://fonts.googleapis.com/css2?family=Sevillana&display=swap" rel="stylesheet"/>
             <title>Colombo Drum School</title>
         </head>
         <body className={inter.className}>
-        <BlogContext>
-            <Flowbite theme={{theme:customTheme}}>
-                <div className={'bg-gray-200 dark:bg-gray-700'}>
-                    <NavBar/>
-                    {children}
-                    <CustomToast/>
-                    <CustomFooter/>
-                </div>
-            </Flowbite>
-        </BlogContext>
+        <AuthContextProvider>
+            <BlogContext>
+                <Flowbite theme={{theme: customTheme}}>
+                    <div className={'bg-gray-200 dark:bg-gray-700'}>
+                        <NavBar/>
+                        {children}
+                        <CustomToast/>
+                        <CustomFooter/>
+                    </div>
+                </Flowbite>
+            </BlogContext>
+        </AuthContextProvider>
         </body>
         </html>
     )

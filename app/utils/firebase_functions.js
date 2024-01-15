@@ -7,7 +7,7 @@ import {v4} from "uuid"
 //save blog
 export const saveBlog = async (data) => {
     const image = data.image;
-    const imagePath = `images/${image.name + v4()}`
+    const imagePath = `images/${image.name + v4()}`;
 
 
     await runTransaction(db, async () => {
@@ -53,6 +53,8 @@ export const retrieveBlogs = async () => {
 
     return blogList;
 };
+
+
 
 
 

@@ -1,20 +1,8 @@
-'use client'
-import {
-    Avatar,
-    DarkThemeToggle,
-    Dropdown,
-    DropdownDivider,
-    DropdownHeader,
-    DropdownItem,
-    Navbar,
-    NavbarBrand,
-    NavbarCollapse,
-    NavbarLink,
-    NavbarToggle
-} from 'flowbite-react';
+'use client';
+import {Avatar, Button, DarkThemeToggle, Dropdown, Navbar, Spinner} from 'flowbite-react';
 import {CREATE_BLOG, HOME_ROUTE, VIEW_BLOGS} from "@/app/utils/routes";
-import Image from "next/image";
-import { usePathname } from 'next/navigation'
+import {usePathname} from 'next/navigation'
+import {useAuth} from "@/app/context/authContext";
 
 const routeDetails = [
     {
@@ -33,50 +21,69 @@ const routeDetails = [
 
 export default function NavBar() {
 
+    const {user, handleSignIn, handleSignOut, loading} = useAuth();
+
 
     const pathname = usePathname();
 
     return (
         <Navbar fluid rounded>
-            <NavbarBrand href={HOME_ROUTE}>
-                <Image width={24} height={36} src="/logo.jpg" className="mr-3 w-6 h-6 sm:h-9 sm:w-9"
-                       alt="Flowbite React Logo"/>
+            <Navbar.Brand href={HOME_ROUTE}>
+                <img src="/logo.jpg" className="mr-3 h-6 sm:h-9" alt="Flowbite React Logo"/>
                 <span className="hidden sm:block self-center whitespace-nowrap text-xl font-semibold dark:text-white">Colombo Drum School</span>
-                <span
-                    className="block sm:hidden self-center whitespace-nowrap text-xl font-semibold dark:text-white">CDS</span>
-            </NavbarBrand>
+                <span className="block sm:hidden self-center whitespace-nowrap text-xl font-semibold dark:text-white">CDS</span>
+            </Navbar.Brand>
             <div className="flex md:order-2">
                 <DarkThemeToggle className={'mr-3'}/>
-                <Dropdown
-                    arrowIcon={false}
-                    inline
-                    label={
-                        <Avatar alt="User settings"
-                                img="https://flowbite.com/docs/images/people/profile-picture-5.jpg" rounded/>
-                    }
-                >
-                    <DropdownHeader>
-                        <span className="block text-sm">Bonnie Green</span>
-                        <span className="block truncate text-sm font-medium">name@flowbite.com</span>
-                    </DropdownHeader>
-                    <DropdownItem>Settings</DropdownItem>
-                    <DropdownDivider/>
-                    <DropdownItem>Sign out</DropdownItem>
-                </Dropdown>
-                <NavbarToggle/>
+                {loading ? (
+                    <div className={'flex justify-center items-center'}>
+                        <Spinner color={'pink'}/>
+                    </div>
+                ) : (
+                    <>
+                        {!user && (<Button onClick={async () => {
+                            await handleSignIn();
+                        }}>SignIN</Button>)}
+                        {user && (<Dropdown
+                            arrowIcon={false}
+                            inline
+                            label={
+                                <Avatar alt="User settings"
+                                        img={user.photoURL}
+                                        rounded/>
+                            }
+                        >
+                            <Dropdown.Header>
+                                <span className="block text-sm">{user.displayName}</span>
+                                <span className="block truncate text-sm font-medium">{user.email}</span>
+                            </Dropdown.Header>
+                            <Dropdown.Item>Dashboard</Dropdown.Item>
+                            <Dropdown.Item>Settings</Dropdown.Item>
+                            <Dropdown.Divider/>
+                            <Dropdown.Item onClick={async () => {
+                                await handleSignOut()
+                            }}>Sign out</Dropdown.Item>
+                        </Dropdown>)}
+                    </>
+                )}
+
+                <Navbar.Toggle/>
             </div>
-            <NavbarCollapse>
+            <Navbar.Collapse>
 
                 {
                     routeDetails.map(
                         (item,index)=>(
-                            <NavbarLink key={index} href={item.route} active={pathname===item.route}>
+                            <Navbar.Link key={index} href={item.route} active={pathname===item.route}>
                                 {item.name}
-                            </NavbarLink>
+                            </Navbar.Link>
+                        )
                     )
-                    )
+
                 }
-            </NavbarCollapse>
+
+
+            </Navbar.Collapse>
         </Navbar>
     );
 }
