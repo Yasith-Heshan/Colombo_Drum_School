@@ -9,7 +9,7 @@ import {toast} from "sonner";
 const authContext = createContext({});
 
 export const AuthContextProvider = ({children}) => {
-    const [setValue] = useLocalStorage('user', null);
+    const setValue = useLocalStorage('user', null)[1];
     const [signInWithGoogle] = useSignInWithGoogle(auth);
     const [user, loading] = useAuthState(auth);
 
