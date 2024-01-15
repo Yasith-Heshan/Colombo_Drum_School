@@ -4,7 +4,7 @@ import NavBar from "@/app/components/NavBar/NavBar";
 import CustomToast from "@/app/components/CustomToast";
 import {BlogContext} from "@/app/context/blogContext";
 import {Flowbite, ThemeModeScript} from 'flowbite-react';
-import CustomeFooter from "@/app/components/Footer";
+import CustomFooter from "@/app/components/Footer";
 import {customTheme} from "@/app/utils/theme";
 
 
@@ -36,7 +36,7 @@ export default function RootLayout({children}) {
                     <NavBar/>
                     {children}
                     <CustomToast/>
-                    <CustomeFooter/>
+                    <CustomFooter/>
                 </div>
             </Flowbite>
         </BlogContext>
