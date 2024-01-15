@@ -1,4 +1,7 @@
-const Carousel = () => {
+import {Carousel} from "flowbite-react";
+import Image  from "next/image";
+
+const CustomCarousel = () => {
     const imageList = [
         {
            id:1,
@@ -12,33 +15,28 @@ const Carousel = () => {
         },
     ]
     return (
-        <div className={'p-10 bg-gray-600'}>
-            <div className={'flex justify-center items-center'}>
-            <div className="h-[65vh] carousel rounded-box">
-                {
-                    imageList.map(
-                        (image)=>(
-                            <div key={image.id} id={`slide_${image.id}`} className="carousel-item w-full">
-                                <img src={image.path} className="w-full h-full object-contain" alt={image.path} />
-                            </div>
-                        )
-                    )
-                }
-            </div>
-            </div>
-            <div className="flex justify-center w-full py-2 gap-2">
-                {
-                    imageList.map(
-                        (image)=>(
-                            <a key={image.id} href={`#slide_${image.id}`} className="btn btn-xs">{image.id}</a>
-                        )
-                    )
-                }
-            </div>
+        <div className="h-[80vh] bg-gray-200 dark:bg-gray-700"><Carousel>
 
+                {
+                    imageList.map(
+                        (image)=>(
+                            <Image
+                                key={image.id}
+                                src={image.path}
+                                alt={image.path}
+                                width={1000}
+                                height={500}
+                                className="w-full h-full object-contain"
+                            />
+                        )
+                    )
+
+                }
+            </Carousel>
         </div>
+
 
     );
 }
 
-export default Carousel;
+export default CustomCarousel;

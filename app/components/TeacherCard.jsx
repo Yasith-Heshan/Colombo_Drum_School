@@ -1,11 +1,14 @@
 import React from 'react';
+import Image from "next/image";
 
 const TeacherCard = ({imagepath,name}) => {
     return (
-        <div className="bg-white rounded-lg shadow-md p-6 max-w-md mx-auto">
-            <img
+        <div className="bg-gray-300 dark:bg-gray-200 rounded-lg shadow-lg shadow-gray-400 p-6 max-w-md sm:ml-5">
+            <Image
                 src={imagepath}
                 alt="Teacher Image"
+                width={1000}
+                height={500}
                 className="w-full h-32 object-cover mb-4 rounded-md"
             />
             <h2 className="text-2xl font-semibold mb-2">{name}</h2>

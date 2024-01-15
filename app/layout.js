@@ -1,9 +1,11 @@
 import {Inter} from 'next/font/google'
 import './globals.css'
 import NavBar from "@/app/components/NavBar/NavBar";
-import Footer from "@/app/components/Footer";
 import CustomToast from "@/app/components/CustomToast";
 import {BlogContext} from "@/app/context/blogContext";
+import {Flowbite, ThemeModeScript} from 'flowbite-react';
+import CustomeFooter from "@/app/components/Footer";
+import {customTheme} from "@/app/utils/theme";
 
 
 const inter = Inter({subsets: ['latin']})
@@ -17,6 +19,7 @@ export default function RootLayout({children}) {
     return (
         <html lang="en">
         <head>
+            <ThemeModeScript/>
             <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>
             <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"/>
             <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"/>
@@ -28,10 +31,14 @@ export default function RootLayout({children}) {
         </head>
         <body className={inter.className}>
         <BlogContext>
-            <NavBar/>
-            {children}
-            <CustomToast/>
-            <Footer/>
+            <Flowbite theme={{theme:customTheme}}>
+                <div className={'bg-gray-200 dark:bg-gray-700'}>
+                    <NavBar/>
+                    {children}
+                    <CustomToast/>
+                    <CustomeFooter/>
+                </div>
+            </Flowbite>
         </BlogContext>
         </body>
         </html>
