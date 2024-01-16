@@ -3,7 +3,7 @@ import {createContext, useContext, useEffect} from "react";
 import {useLocalStorage} from "@/app/hooks/useLocalStorage";
 import {auth} from '../firebase'
 import {useAuthState, useSignInWithGoogle} from "react-firebase-hooks/auth";
-import {signOut} from 'firebase/auth'
+import {signOut,signInWithRedirect,GoogleAuthProvider} from 'firebase/auth'
 import {toast} from "sonner";
 
 const authContext = createContext({});
@@ -15,7 +15,8 @@ export const AuthContextProvider = ({children}) => {
 
     const handleSignIn = async () => {
         try {
-            await signInWithGoogle();
+            const provider = new GoogleAuthProvider();
+            await signInWithRedirect(auth,provider);
         } catch (e) {
             toast.error('Sign In failed');
             console.error(e);

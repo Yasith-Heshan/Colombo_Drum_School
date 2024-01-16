@@ -24,6 +24,7 @@ export default function NavBar() {
     const {user, handleSignIn, handleSignOut, loading} = useAuth();
 
 
+
     const pathname = usePathname();
 
     return (
@@ -48,7 +49,7 @@ export default function NavBar() {
                             arrowIcon={false}
                             inline
                             label={
-                                <Avatar alt="User settings"
+                                <Avatar alt="settings"
                                         img={user.photoURL}
                                         rounded/>
                             }
