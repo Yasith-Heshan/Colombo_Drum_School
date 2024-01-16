@@ -2,6 +2,7 @@
 import Editor from "@/app/components/Editor";
 import {useEffect, useState} from "react";
 import {saveBlog} from "@/app/utils/firebase_functions";
+import {FileInput, TextInput} from 'flowbite-react';
 
 const CreateBlog = () => {
     const [content, setContent] = useState('');
@@ -33,21 +34,20 @@ const CreateBlog = () => {
 
     return (
         <>
-            <div className={'m-10 p-10 bg-gray-800 rounded shadow-lg shadow-gray-400'}>
+            <div className={'m-10 p-10 bg-gray-200 dark:bg-gray-700 rounded shadow-lg shadow-gray-400'}>
                 <div className="sm:flex sm:justify-between sm:items-center">
-                    <input className={'input input-bordered w-full sm:max-w-xs m-1 placeholder:text-center'}
-                           placeholder={'Title'} value={title}
-                           onChange={(event) => {
-                               setTitle(event.target.value);
-                           }}/>
-                    <input id={'file-input'} title={'Choose Thumbnail'} placeholder={'Upload Thumbnail'}
-                           className={`${showFile} file-input file-input-bordered w-full sm:max-w-xs m-1`}
-                           type='file' onChange={(event) => {
-                        setImage(event.target.files[0])
-                    }}/>
-                    <label id={'file-input-label'}
-                           className={`${showLabel} input flex justify-center items-center input-bordered text-center text-1.5xl  w-full sm:max-w-xs m-1`}
-                           htmlFor={'file-input'}>Select Thumbnail</label>
+                    <TextInput
+                        placeholder={'Title'} value={title}
+                        onChange={(event) => {
+                            setTitle(event.target.value);
+                        }}/>
+                    <div>
+                        <FileInput id={'file-input'} title={'Choose Thumbnail'}  helperText={'Upload Thumbnail'}
+                                   onChange={(event) => {
+                                       setImage(event.target.files[0])
+                                   }}/>
+                    </div>
+
                 </div>
 
                 <Editor content={content} setContent={setContent}/>

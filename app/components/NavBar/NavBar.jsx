@@ -3,19 +3,24 @@ import {Avatar, Button, DarkThemeToggle, Dropdown, Navbar, Spinner} from 'flowbi
 import {CREATE_BLOG, HOME_ROUTE, VIEW_BLOGS} from "@/app/utils/routes";
 import {usePathname} from 'next/navigation'
 import {useAuth} from "@/app/context/authContext";
+import {PERMISSION_LEVEL} from "@/app/utils/constants";
 
 const routeDetails = [
     {
         name: 'Home',
         route: HOME_ROUTE,
+        permission: PERMISSION_LEVEL.All
     },
     {
         name: 'Create Blog',
         route: CREATE_BLOG,
+        permission: PERMISSION_LEVEL.Admin
+
     },
     {
         name: 'Blogs',
         route: VIEW_BLOGS,
+        permission: PERMISSION_LEVEL.All
     }
 ]
 
@@ -74,11 +79,24 @@ export default function NavBar() {
 
                 {
                     routeDetails.map(
-                        (item,index)=>(
-                            <Navbar.Link key={index} href={item.route} active={pathname===item.route}>
-                                {item.name}
-                            </Navbar.Link>
-                        )
+                        (item,index)=> {
+                            if(item.permission===PERMISSION_LEVEL.Admin){
+                                if(user && user.email===process.env.NEXT_PUBLIC_ADMIN_EMAIL){
+                                    return(
+                                        <Navbar.Link key={index} href={item.route} active={pathname === item.route}>
+                                            {item.name}
+                                        </Navbar.Link>
+                                    );
+                                }
+                            }else{
+                                return(
+                                    <Navbar.Link key={index} href={item.route} active={pathname === item.route}>
+                                        {item.name}
+                                    </Navbar.Link>
+                                );
+                            }
+
+                        }
                     )
 
                 }
