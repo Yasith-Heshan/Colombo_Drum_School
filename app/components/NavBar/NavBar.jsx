@@ -41,7 +41,7 @@ export default function NavBar() {
                     </div>
                 ) : (
                     <>
-                        {!user && (<Button onClick={async () => {
+                        {!user && (<Button className={'text-white'} color={'bg_pink'} onClick={async () => {
                             await handleSignIn();
                         }}>SignIN</Button>)}
                         {user && (<Dropdown

@@ -1,5 +1,7 @@
 export const customTheme = {
-    color:{
-        bg_pink: 'bg-[#FF0060]'
+    button:{
+        color:{
+            bg_pink: 'bg-[#FF0060] hover:bg-pink-500'
+        }
     }
 };
