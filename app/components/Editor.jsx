@@ -15,7 +15,7 @@ export default function Editor({content, setContent}) {
             [{header: [1, 2, 3, false]}],
             ['bold', 'italic', 'underline', 'strike', 'blockquote'],
             [{list: 'ordered'}, {list: 'bullet'}],
-            ['link', 'image'],
+            ['link', 'image','video'],
             [{align: []}],
             [{color: []}],
             ['code-block'],
@@ -36,6 +36,7 @@ export default function Editor({content, setContent}) {
         'bullet',
         'link',
         'image',
+        'video',
         'align',
         'color',
         'code-block',
@@ -53,6 +54,7 @@ export default function Editor({content, setContent}) {
                 onChange={handleEditorChange}
                 modules={quillModules}
                 formats={quillFormats}
+                theme={'snow'}
                 className={'w-full min-h-[40vh] bg-white text-black my-5'}
             />
     );

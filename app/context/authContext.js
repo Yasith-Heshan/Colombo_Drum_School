@@ -1,17 +1,17 @@
 "use client";
-import {createContext, useContext, useEffect} from "react";
+import {createContext, useContext, useEffect, useState} from "react";
 import {useLocalStorage} from "@/app/hooks/useLocalStorage";
 import {auth} from '../firebase'
-import {useAuthState, useSignInWithGoogle} from "react-firebase-hooks/auth";
+import {useAuthState} from "react-firebase-hooks/auth";
 import {signOut,signInWithRedirect,GoogleAuthProvider} from 'firebase/auth'
 import {toast} from "sonner";
 
 const authContext = createContext({});
 
 export const AuthContextProvider = ({children}) => {
-    const setValue = useLocalStorage('user', null)[1];
-    const [signInWithGoogle] = useSignInWithGoogle(auth);
+    const [storedValues,setValue] = useLocalStorage('user', null);
     const [user, loading] = useAuthState(auth);
+    const [loggedUser, setLoggedUser] = useState(null);
 
     const handleSignIn = async () => {
         try {
@@ -26,7 +26,7 @@ export const AuthContextProvider = ({children}) => {
     const handleSignOut = async () => {
         try {
             await signOut(auth);
-
+            setValue(null);
         } catch (e) {
             toast.error('Sign Out failed');
             console.error(e);
@@ -35,11 +35,17 @@ export const AuthContextProvider = ({children}) => {
 
 
     useEffect(() => {
-        setValue(user);
+        if(user){
+            setValue(user);
+        }
+        setLoggedUser(storedValues);
     }, [setValue, user]);
 
+
+
+
     return (
-        <authContext.Provider value={{user, handleSignIn, handleSignOut, loading}}>
+        <authContext.Provider value={{loggedUser, handleSignIn, handleSignOut, loading}}>
             {children}
         </authContext.Provider>
     );

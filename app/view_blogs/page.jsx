@@ -6,19 +6,21 @@ import {VIEW_BLOGS} from "@/app/utils/routes";
 import {retrieveBlogs} from "@/app/utils/firebase_functions";
 import {toast} from "sonner";
 import {useBlogs} from "@/app/context/blogContext";
+import {Spinner} from "flowbite-react";
 
 const ViewBlogs = () => {
     const [loading, setLoading] = useState(false);
     const {blogs, setBlogs} = useBlogs();
+    const [isClient, setIsClient] = useState(false);
 
 
 
     useEffect(() => {
-        localStorage.removeItem('blogs');
         setLoading(true);
         retrieveBlogs()
             .then(
                 (blogs) => {
+                    console.log(blogs);
                     setBlogs([...blogs.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))]);
                 }
             ).catch(
@@ -28,6 +30,7 @@ const ViewBlogs = () => {
             }
         ).finally(
             () => {
+                setIsClient(true);
                 setLoading(false);
             }
         )
@@ -38,15 +41,15 @@ const ViewBlogs = () => {
         <>
             {
                 loading && (
-                    <div className={'flex justify-center items-center m-10'}>
-                        <span className="loading loading-spinner loading-lg text-pink-600"></span>
+                    <div className={'h-[70vh] flex justify-center items-center m-10'}>
+                        <Spinner size={'xl'}/>
                     </div>
                 )
             }
             {
-                !loading && blogs && (
-                    <div className={'flex justify-center items-center'}>
-                        <div className="mb-32 sm:grid sm:grid-cols-2 lg:grid-cols-3">
+                !loading && isClient  && blogs && (
+                    <div className={'flex justify-center items-center mt-3'}>
+                        <div className="mb-32 sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
                             {
                                 blogs.map((data, index) => {
                                         return (

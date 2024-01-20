@@ -5,3 +5,17 @@ export const shortenName = (fullName)=>{
 
     return `${firstName} ${lastName.charAt(0)}.`;
 }
+
+export const classNames = (...classes) => {
+    return classes.filter(Boolean).join(' ');
+};
+
+export const getItem = (id) => {
+    let temp = null;
+    pricesList.forEach((item) => {
+        if (item.id === id) {
+            temp = item;
+        }
+    });
+    return temp;
+};

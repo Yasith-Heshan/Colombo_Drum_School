@@ -25,7 +25,7 @@ export default function Home() {
                 {/* Teacher Details */}
                 <section className="my-16">
                     <h2 className="text-3xl font-semibold mb-8 text-center dark:text-gray-300">Meet Your Instructor</h2>
-                    <div className="grid grid-cols-1 lg:grid-cols-3">
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-36">
                         <div className={'h-[50vh] sm:h-[60vh] md:h-[65vh] lg:h-full lg:item-1 lg:col-span-2'}>
                             <iframe className={'w-full h-full'}
                                     src="https://www.youtube.com/embed/C83WzmJKp7Y?si=uS17MfeBxdol23DU"

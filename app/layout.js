@@ -7,6 +7,7 @@ import {Flowbite, ThemeModeScript} from 'flowbite-react';
 import CustomFooter from "@/app/components/Footer";
 import {customTheme} from "@/app/utils/theme";
 import {AuthContextProvider} from "@/app/context/authContext";
+import {classNames} from "@/app/utils/support_functions";
 
 
 const inter = Inter({subsets: ['latin']})
@@ -28,13 +29,16 @@ export default function RootLayout({children}) {
             <link href="https://fonts.googleapis.com/css2?family=Sevillana&display=swap" rel="stylesheet"/>
             <title>Colombo Drum School</title>
         </head>
-        <body className={inter.className}>
+        <body className={classNames(inter.className,'bg-gray-200 dark:bg-gray-700')}>
         <AuthContextProvider>
             <BlogContext>
                 <Flowbite theme={{theme: customTheme}}>
-                    <div className={'bg-gray-200 dark:bg-gray-700'}>
+                    <div >
                         <NavBar/>
-                        {children}
+                        <div className={'pb-10'}>
+                            {children}
+
+                        </div>
                         <CustomToast/>
                         <CustomFooter/>
                     </div>

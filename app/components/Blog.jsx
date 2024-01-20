@@ -1,19 +1,28 @@
+"use client"
 import Image from 'next/image'
+import {Card} from "flowbite-react";
 
 const Blog = ({data}) => {
     const title = data.title;
     const thumbnail = data.thumbnail;
     const date = data.createdAt;
+    const studentOnly = data.studentOnly;
 
     return (
-        <div
-            className="m-2.5 max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-            <Image className="w-full h-40 rounded-t-lg" src={thumbnail} alt={title} width={400} height={300}/>
-            <div className="p-5">
-                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white text-center">{title}</h5>
-                <p className="mb-3 font-normal text-gray-700 dark:text-gray-400 text-center">{date}</p>
-            </div>
-        </div>
+        <Card
+            className="max-w-sm"
+            renderImage={() => <Image width={500} height={500} src={thumbnail} className={'h-[200px] w-[300px]'} alt={title} />}
+        >
+            <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                {title}
+            </h5>
+            <h6 className={'text-gray-600 font-bold dark:text-gray-300'}>
+                {studentOnly?'Student Only':'Public'}
+            </h6>
+            <p className="font-normal text-gray-700 dark:text-gray-400">
+                {date}
+            </p>
+        </Card>
 
     );
 }

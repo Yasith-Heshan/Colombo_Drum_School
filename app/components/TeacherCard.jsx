@@ -1,8 +1,7 @@
 import React from 'react';
 import Image from "next/image";
 
-const TeacherCard = ({imagepath,name}) => {
-    return (
+const TeacherCard = ({imagepath,name}) => (
         <div className="bg-gray-300 dark:bg-gray-200 rounded-lg shadow-lg shadow-gray-400 p-6 max-w-md sm:ml-5">
             <Image
                 src={imagepath}
@@ -74,6 +73,5 @@ const TeacherCard = ({imagepath,name}) => {
             </button>
         </div>
     );
-};
 
 export default TeacherCard;

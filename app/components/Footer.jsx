@@ -3,7 +3,7 @@ import {BsDribbble, BsFacebook, BsGithub, BsInstagram, BsTwitter} from 'react-ic
 
 
 const CustomeFooter = () => (
-            <Footer bgDark>
+            <Footer className={'fixed bottom-0'} bgDark>
                 <div className="w-full">
                     <div className="w-full bg-gray-100 dark:bg-gray-900 px-4 py-6 sm:flex sm:items-center sm:justify-between">
                         <FooterCopyright href="#" by="Flowbite™" year={2022}/>

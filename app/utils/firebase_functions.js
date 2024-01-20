@@ -6,18 +6,19 @@ import {v4} from "uuid"
 
 //save blog
 export const saveBlog = async (data) => {
-    const image = data.image;
-    const imagePath = `images/${image.name + v4()}`;
+    const image = data.thumbnail;
+    const imagePath = `images/${v4()+image.name}`;
 
 
     await runTransaction(db, async () => {
         const imageRef = ref(storage, imagePath)
         await uploadBytes(imageRef, image);
-
         await addDoc(collection(db, 'blogs'), {
             title: data.title,
             thumbnail: imagePath,
             blog: data.content,
+            studentOnly:data.studentOnly,
+            published:data.published,
             createdAt: serverTimestamp()
         });
     })
@@ -39,6 +40,7 @@ export const retrieveBlogs = async () => {
                 title: documentData.title,
                 blog: documentData.blog,
                 createdAt: documentData.createdAt.toDate().toLocaleDateString(),
+                studentOnly:documentData.studentOnly,
             };
 
             const matchingImage = response.items.find((item) => item._location.path === documentData.thumbnail);

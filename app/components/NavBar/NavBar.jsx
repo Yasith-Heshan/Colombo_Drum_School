@@ -1,9 +1,9 @@
 'use client';
 import {Avatar, Button, DarkThemeToggle, Dropdown, Navbar, Spinner} from 'flowbite-react';
 import {CREATE_BLOG, HOME_ROUTE, VIEW_BLOGS} from "@/app/utils/routes";
-import {usePathname} from 'next/navigation'
 import {useAuth} from "@/app/context/authContext";
 import {PERMISSION_LEVEL} from "@/app/utils/constants";
+import NavbarLink from "@/app/components/NavBar/NavbarLink";
 
 const routeDetails = [
     {
@@ -26,11 +26,8 @@ const routeDetails = [
 
 export default function NavBar() {
 
-    const {user, handleSignIn, handleSignOut, loading} = useAuth();
+    const {loggedUser, handleSignIn, handleSignOut, loading} = useAuth();
 
-
-
-    const pathname = usePathname();
 
     return (
         <Navbar fluid rounded>
@@ -47,21 +44,22 @@ export default function NavBar() {
                     </div>
                 ) : (
                     <>
-                        {!user && (<Button className={'text-white'} color={'bg_pink'} onClick={async () => {
+                        {!loggedUser && (<Button className={'text-white'} color={'bg_pink'} onClick={async () => {
                             await handleSignIn();
                         }}>SignIN</Button>)}
-                        {user && (<Dropdown
+                        {loggedUser && (<Dropdown
+                            className={'mr-3 sm:mr-0'}
                             arrowIcon={false}
                             inline
                             label={
                                 <Avatar alt="settings"
-                                        img={user.photoURL}
+                                        img={loggedUser.photoURL}
                                         rounded/>
                             }
                         >
                             <Dropdown.Header>
-                                <span className="block text-sm">{user.displayName}</span>
-                                <span className="block truncate text-sm font-medium">{user.email}</span>
+                                <span className="block text-sm">{loggedUser.displayName}</span>
+                                <span className="block truncate text-sm font-medium">{loggedUser.email}</span>
                             </Dropdown.Header>
                             <Dropdown.Item>Dashboard</Dropdown.Item>
                             <Dropdown.Item>Settings</Dropdown.Item>
@@ -81,18 +79,18 @@ export default function NavBar() {
                     routeDetails.map(
                         (item,index)=> {
                             if(item.permission===PERMISSION_LEVEL.Admin){
-                                if(user && user.email===process.env.NEXT_PUBLIC_ADMIN_EMAIL){
+                                if(loggedUser && loggedUser.email===process.env.NEXT_PUBLIC_ADMIN_EMAIL){
                                     return(
-                                        <Navbar.Link key={index} href={item.route} active={pathname === item.route}>
+                                        <NavbarLink key={index} link={item.route}>
                                             {item.name}
-                                        </Navbar.Link>
+                                        </NavbarLink>
                                     );
                                 }
                             }else{
                                 return(
-                                    <Navbar.Link key={index} href={item.route} active={pathname === item.route}>
+                                    <NavbarLink key={index} link={item.route}>
                                         {item.name}
-                                    </Navbar.Link>
+                                    </NavbarLink>
                                 );
                             }
 
